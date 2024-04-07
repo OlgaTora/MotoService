@@ -1,10 +1,10 @@
 from typing import Any
 from fastapi import HTTPException
 
-from Arcitecture.Seminar_10.clinic.logger import logger
-from Arcitecture.Seminar_10.clinic.repositories.irepository import IRepository
-from Arcitecture.Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
-from Arcitecture.Seminar_10.clinic.services.db import pets, database
+from Seminar_10.clinic.logger import logger
+from Seminar_10.clinic.repositories.irepository import IRepository
+from Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
+from Seminar_10.clinic.services.db import pets, database
 
 
 class PetRepository(IRepository):

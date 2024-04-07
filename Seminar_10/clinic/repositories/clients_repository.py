@@ -1,10 +1,10 @@
 from typing import Any, Dict
 from fastapi import HTTPException
 
-from Arcitecture.Seminar_10.clinic.logger import logger
-from Arcitecture.Seminar_10.clinic.repositories.irepository import IRepository
-from Arcitecture.Seminar_10.clinic.schemas.client import Client, CreateClientRequest
-from Arcitecture.Seminar_10.clinic.services.db import clients, database
+from Seminar_10.clinic.logger import logger
+from Seminar_10.clinic.repositories.irepository import IRepository
+from Seminar_10.clinic.schemas.client import Client, CreateClientRequest
+from Seminar_10.clinic.services.db import clients, database
 
 
 class ClientRepository(IRepository):

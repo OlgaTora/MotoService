@@ -1,6 +1,6 @@
 import delphifmx
 
-from Arcitecture.Seminar_10.clinic_gui.clients_manager import ClientManager
+from Seminar_10.clinic_gui.clients_manager import ClientManager
 
 
 def run():

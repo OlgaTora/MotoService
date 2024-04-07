@@ -1,9 +1,9 @@
 from typing import List, Dict, Any
 from fastapi import APIRouter, Depends
-from Arcitecture.Seminar_10.clinic.schemas.pet import Pet
-from Arcitecture.Seminar_10.clinic.schemas.pet import CreatePetRequest
-from Arcitecture.Seminar_10.clinic.services.depends import get_pet_service
-from Arcitecture.Seminar_10.clinic.services.pets import PetService
+from Seminar_10.clinic.schemas.pet import Pet
+from Seminar_10.clinic.schemas.pet import CreatePetRequest
+from Seminar_10.clinic.services.depends import get_pet_service
+from Seminar_10.clinic.services.pets import PetService
 
 router = APIRouter()
 

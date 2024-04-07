@@ -1,9 +1,9 @@
 from typing import List, Any
 from fastapi import APIRouter, Depends
-from Arcitecture.Seminar_10.clinic.schemas.client import Client
-from Arcitecture.Seminar_10.clinic.schemas.client import CreateClientRequest
-from Arcitecture.Seminar_10.clinic.services.clients import ClientService
-from Arcitecture.Seminar_10.clinic.services.depends import get_client_service
+from Seminar_10.clinic.schemas.client import Client
+from Seminar_10.clinic.schemas.client import CreateClientRequest
+from Seminar_10.clinic.services.clients import ClientService
+from Seminar_10.clinic.services.depends import get_client_service
 
 router = APIRouter()
 

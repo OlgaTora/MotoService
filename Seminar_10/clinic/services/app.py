@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
 
-from Arcitecture.Seminar_10.clinic.routers import client_router, pet_router, consult_router
-from Arcitecture.Seminar_10.clinic.services.db import database
+from Seminar_10.clinic.routers import client_router, pet_router, consult_router
+from Seminar_10.clinic.services.db import database
 
 app = FastAPI()
 

@@ -1,6 +1,6 @@
 from typing import Any, Coroutine
-from Arcitecture.Seminar_10.clinic.repositories.pets_repository import PetRepository
-from Arcitecture.Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
+from Seminar_10.clinic.repositories.pets_repository import PetRepository
+from Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
 
 
 class PetService:

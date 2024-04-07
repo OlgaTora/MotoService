@@ -1,6 +1,6 @@
 from typing import Any, Coroutine
-from Arcitecture.Seminar_10.clinic.repositories.consult_repository import ConsultRepository
-from Arcitecture.Seminar_10.clinic.schemas.consultation import Consultation, CreateConsultationRequest
+from Seminar_10.clinic.repositories.consult_repository import ConsultRepository
+from Seminar_10.clinic.schemas.consultation import Consultation, CreateConsultationRequest
 
 
 class ConsultationService:

@@ -1,10 +1,10 @@
-from Arcitecture.Seminar_10.clinic.repositories.clients_repository import ClientRepository
-from Arcitecture.Seminar_10.clinic.repositories.pets_repository import PetRepository
-from Arcitecture.Seminar_10.clinic.repositories.consult_repository import ConsultRepository
+from Seminar_10.clinic.repositories.clients_repository import ClientRepository
+from Seminar_10.clinic.repositories.pets_repository import PetRepository
+from Seminar_10.clinic.repositories.consult_repository import ConsultRepository
 
-from Arcitecture.Seminar_10.clinic.services.clients import ClientService
-from Arcitecture.Seminar_10.clinic.services.consults import ConsultationService
-from Arcitecture.Seminar_10.clinic.services.pets import PetService
+from Seminar_10.clinic.services.clients import ClientService
+from Seminar_10.clinic.services.consults import ConsultationService
+from Seminar_10.clinic.services.pets import PetService
 
 # repository - работа с БД
 client_repository = ClientRepository()
