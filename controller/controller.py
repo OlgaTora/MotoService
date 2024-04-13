@@ -2,7 +2,7 @@
     The code in this file connects the model and the view.
 """
 
-from model.model import Motorcycle, Base
+from model.model import Motorcycle, Base, Client, BaseMotorcycle
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -29,15 +29,17 @@ def add_motorcycle(data):
     session.commit()
     session.close()
 
-# """
-#     Add a new category to the Category table. Data must be in a dictionary.
-# """
-# def add_category(data):
-#     category = Category()
-#     category.name = data['name']
-#     session.add(category)
-#     session.commit()
-#     session.close()
+
+def add_client(data):
+    """
+        Add new client.
+    """
+    client = Client()
+    client.name = data['name']
+    # client.motorcycle = data['motorcycle']
+    session.add(client)
+    session.commit()
+    session.close()
 #
 # """
 #     Get everything from tables Item and Category and create a list of ItemObj
@@ -58,4 +60,14 @@ def get_motorcycles():
     motorcycles = session.query(Motorcycle).all()
     session.close()
     return motorcycles
+
+def get_base_motorcycles():
+    motorcycles = session.query(BaseMotorcycle).all()
+    session.close()
+    return motorcycles
+
+def get_clients():
+    clients = session.query(Client).all()
+    session.close()
+    return clients
 

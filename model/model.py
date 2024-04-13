@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy import Table, Column, create_engine
 from sqlalchemy import ForeignKey, Integer, String, Unicode, Date
@@ -11,23 +11,42 @@ from sqlalchemy.orm import Mapped, mapped_column
 class Base(DeclarativeBase):
     pass
 
+
 engine = create_engine("sqlite:///model/ms.db", echo=True)
 # Base = declarative_base()
+
+
+class BaseMotorcycle(Base):
+    __tablename__ = 'base_motorcycle'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), nullable=False)
+    vin: Mapped[Optional[str]]
 
 
 class Motorcycle(Base):
     __tablename__ = 'motorcycle'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False)
-    document = Column(String(120), unique=True)
-    # id: Mapped[int] = mapped_column(primary_key=True)
-    # name: Mapped[str] = mapped_column(String(80), nullable=False)
-    # document: Mapped[Optional[str]]
+    # id = Column(Integer, primary_key=True)
+    # name = Column(String(80), nullable=False)
+    # document = Column(String(120), unique=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), nullable=False)
+    document: Mapped[Optional[str]]
+    client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
+    client: Mapped['Client'] = relationship(back_populates='motorcycle')
 
 
-# class Client(Base):
-#     __tablename__ = 'client'
+class Client(Base):
+    __tablename__ = 'client'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), nullable=False)
+    surname: Mapped[Optional[str]]
+    document: Mapped[Optional[str]]
+    birthday: Mapped[Optional[str]]
+    motorcycle: Mapped[List['Motorcycle']] = relationship(
+        back_populates='client', cascade="all, delete-orphan"
+    )
+
 #     id = Column(Integer, primary_key=True)
 #     name = Column(String(80), nullable=False)
 #     surname = Column(String(80))
@@ -37,5 +56,4 @@ class Motorcycle(Base):
 #     birthday = Column(Date)
 
 
-# Base.create_all(engine)
 Base.metadata.create_all(engine, checkfirst=True)

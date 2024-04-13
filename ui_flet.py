@@ -1,7 +1,7 @@
 import tkinter as tk
 from database import *
 
-conn, cursor = initialize_connection()
+# conn, cursor = initialize_connection()
 
 
 def center_window(width, height):

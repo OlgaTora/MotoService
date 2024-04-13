@@ -1,5 +1,5 @@
-from view.view import MyApp
+from view.view import MotoApp
 
 if __name__ == '__main__':
-    MyApp().run()
+    MotoApp().run()
 

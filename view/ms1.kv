@@ -1,6 +1,5 @@
 <_Button@Button>:
     background_color: .5, .9, 1, .9
-
 <AppScreenManager>:
     Screen:
         name: 'HomeScreen'
@@ -16,7 +15,7 @@
                 pos_hint: {'x': 0, 'top': 1}
                 size_hint: 1, .1
                 Label:
-                    text: 'My Item List'
+                    text: 'Мото Сервис Виталия'
                     halign: 'center'
                     font_size: 30
                     size_hint: 1, .02
@@ -29,28 +28,25 @@
                     Rectangle:
                         pos: self.pos
                         size: self.size
-                size_hint: .9, .8
+                        source: 'Harley Davidson.jpeg'
+                size_hint: .9, .6
                 pos_hint: {'x': .05, 'top': .9}
-                ScrollView:
-                    id: scroll
-                    size_hint: 1, 1
-                    bar_width: 15
-                    scroll_type: ['bars', 'content']
-                    GridLayout:
-                        id: list
-                        cols: 1
-                        padding: 14
-                        spacing: 14
-                        size_hint_y: None
             _Button:
                 pos_hint: {'x': 0, 'y': 0}
                 size_hint: 1, 0.09
-                text: 'Add Item >>'
+                text: 'Войти >>'
                 on_press:
                     root.transition.direction = 'left'
-                    root.current = 'ManageItems'
+                    root.current = 'Clients'
+            _Button:
+                pos_hint: {'x': 10, 'y': 0}
+                size_hint: 1, 0.09
+                text: 'Go >>'
+                on_press:
+                    root.transition.direction = 'left'
+                    root.current = 'MotoBase'
     Screen:
-        name: 'ManageItems'
+        name: 'Clients'
         FloatLayout:
             id: input_area
             canvas.before:
@@ -64,7 +60,7 @@
                 pos_hint: {'x': 0, 'top': 1}
                 size_hint: 1, .1
                 Label:
-                    text: 'Add new item'
+                    text: 'Мото Сервис Виталия'
                     halign: 'center'
                     font_size: 30
                     size_hint: 1, .02
@@ -88,37 +84,59 @@
                     spacing: 14
                     pos_hint: {'x': 0, 'y': -0.25}
                     Label:
-                        text: 'Item: '
+                        text: 'Клиент: '
                         font_size: 25
                     Label:
-                        text: 'Category: '
+                        text: 'Мотоцикл: '
                         font_size: 25
-                    TextInput:
-                        id: item
-                        hint_text: 'Item name'
-                        font_size: 25
-                        background_color: 0, 1, .7, .3
+                    _Button:
+                        text: 'Добавить клиента'
+                        font_size: 20
+                        on_press: root.open_client_form(root)
                     FloatLayout:
                         Spinner:
-                            id: categories
-                            text: 'Select'
+                            id: base_motorcycles
+                            text: 'Выбрать'
                             values: ['Select']
                             size_hint: (None, None)
                             size: (180, 35)
                             pos_hint: {'x': 0, 'center_y': .5}
                             background_color: .5, .9, 1, .9
                     _Button:
-                        text: 'Save'
+                        text: 'Добавить мотоцикл'
                         font_size: 20
-                        on_press: root.add_item()
-                    _Button:
-                        text: 'Add category'
-                        font_size: 20
-                        on_press: root.open_category_form(root)
+                        on_press: root.open_motorcycle_form(root)
             _Button:
                 pos_hint: {'x': 0, 'y': 0}
                 size_hint: 1, 0.09
-                text: '<< Home Screen'
+                text: '<< Вернуться'
                 on_press:
                     root.transition.direction = 'right'
                     root.current = 'HomeScreen'
+            _Button:
+                pos_hint: {'x': 5, 'y': 3}
+                size_hint: 1, 0.09
+                text: '<< ffff'
+                on_press:
+                    root.transition.direction = 'left'
+                    root.current = 'ManageItems'
+        Screen:
+            name: 'MotoBase'
+            FloatLayout:
+                id: input_area
+                canvas.before:
+                    Color:
+                        rgba: 0, 1, 1, .5
+                canvas:
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                FloatLayout:
+                    pos_hint: {'x': 0, 'top': 1}
+                    size_hint: 1, .1
+                    Label:
+                        text: 'Мото Сервис Виталия'
+                        halign: 'center'
+                        font_size: 30
+                        size_hint: 1, .02
+                        pos_hint: {'x': 0, 'top': .5}
