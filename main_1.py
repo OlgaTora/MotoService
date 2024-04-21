@@ -5,7 +5,7 @@ from functools import partial
 
 from kivy.app import App
 from kivy.graphics import Rectangle, Color
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
@@ -34,9 +34,12 @@ class RootWidget(FloatLayout):
         self.client_form = ClientAddForm(self)
         self.add_widget(self.client_form)
 
+    def open_motocycle_form(self, *args):
+        self.motocycle_form = MotocycleAddForm(self)
+        self.add_widget(self.motocycle_form)
+
     def set_clients(self):
         self.clients = controller.get_clients()
-
 
     def add_client(*args):
         root = args[0]
@@ -45,11 +48,14 @@ class RootWidget(FloatLayout):
 
         controller.add_client({
             'name': root.client_form.name.text,
+            'motorcycle': root.client_form.motorcycle.text,
         })
 
-        root.clients.values = []
+        # root.clients.values = []
         root.set_clients()
         # root.cancel_motorcycle()
+
+
 class MotoServiceApp(App):
 
     def build(self):
@@ -61,23 +67,28 @@ class MotoServiceApp(App):
             self.rect = Rectangle(
                 size=root.size,
                 pos=root.pos,
-                source='Harley Davidson.jpeg',)
+                source='Harley Davidson.jpeg', )
         return root
 
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
         self.rect.size = instance.size
 
+
 class ClientAddForm(GridLayout):
     def __init__(self, root, *args, **kwargs):
         super(ClientAddForm, self).__init__(*args, **kwargs)
         self.name = TextInput(hint_text='Имя')
         self.add_widget(self.name)
-        # self.moto = TextInput.selection_text('f')
-        spinnerObject = Spinner(text="Python", values=("Python", "Java", "C++"))
-        spinnerObject.size_hint = (0.3, 0.2)
-        spinnerObject.pos_hint = {'x': .1, 'y': .75}
-        self.add_widget(spinnerObject)
+        self.add_widget(Button(text='Add Moto',
+                               size_hint=(0.25, 0.15),
+                               pos_hint={'center_x': .5, 'center_y': .5},
+                               on_press=root.open_motocycle_form))
+        motos = [str(moto) for moto in controller.get_base_motorcycles()]
+        self.motorcycle = Spinner(text="Moto", values=motos)
+        self.motorcycle.size_hint = (0.4, 0.7)
+        self.motorcycle.pos_hint = {'x': .1, 'y': .75}
+        self.add_widget(self.motorcycle)
         # spinnerObject.bind(text=self.on_spinner_select)
         self.add_widget(Button(text='Добавить', on_press=root.add_client))
         # self.add_widget(
@@ -86,6 +97,19 @@ class ClientAddForm(GridLayout):
         self.spacing = 5
         self.size_hint = (0.9, 0.3)
         self.pos_hint = {'x': .05, 'y': .5}
+
+
+class MotocycleAddForm(GridLayout):
+    def __init__(self, root, *args, **kwargs):
+        super(MotocycleAddForm, self).__init__(*args, **kwargs)
+        self.name = TextInput(hint_text='Имя')
+        self.add_widget(self.name)
+        motos = [str(moto) for moto in controller.get_base_motorcycles()]
+        self.motorcycle = Spinner(text="Moto", values=motos)
+        self.motorcycle.size_hint = (0.4, 0.7)
+        self.motorcycle.pos_hint = {'x': .1, 'y': .75}
+        self.add_widget(self.motorcycle)
+
 
 # class MotoyApp(App):
 #     def build(self):

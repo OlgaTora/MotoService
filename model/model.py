@@ -22,6 +22,8 @@ class BaseMotorcycle(Base):
     name: Mapped[str] = mapped_column(String(80), nullable=False)
     vin: Mapped[Optional[str]]
 
+    def __repr__(self):
+        return self.name
 
 class Motorcycle(Base):
     __tablename__ = 'motorcycle'

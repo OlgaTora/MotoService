@@ -63,6 +63,8 @@ def get_motorcycles():
 
 def get_base_motorcycles():
     motorcycles = session.query(BaseMotorcycle).all()
+    if motorcycles is None:
+        raise ValueError("Сокровище не найдено!")
     session.close()
     return motorcycles
 

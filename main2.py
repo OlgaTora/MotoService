@@ -24,7 +24,7 @@ class SpinnerExample(App):
         layout.add_widget(self.spinnerSelection)
         self.spinnerSelection.pos_hint = {'x': .1, 'y': .3}
 
-        return layout;
+        return layout
 
     # call back for the selection in spinner object
     def on_spinner_select(self, spinner, text):
