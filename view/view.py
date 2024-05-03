@@ -27,7 +27,6 @@ class AppScreenManager(ScreenManager):
     motorcycles = ObjectProperty(None, allownone=True)
     clients = ObjectProperty(None, allownone=True)
     motorcycle_form = ObjectProperty(None, allownone=True)
-    client_form = ObjectProperty(None, allownone=True)
 
     def __init__(self, *args):
         super(AppScreenManager, self).__init__(*args)
@@ -51,14 +50,13 @@ class AppScreenManager(ScreenManager):
     """
         Set the values for the Category spinner
     """
-    def choice_motocycle_model(self, *args):
+    def choice_motorcycle_model(self, *args):
         return controller.get_base_motorcycles()
 
     def set_motorcycles(self):
         self.motorcycles = controller.get_motorcycles()
         for moto in self.motorcycles:
             pass
-            # self.ids.motorcycles.values.append(moto.name)
 
     def set_clients(self):
         self.clients = controller.get_clients()
@@ -135,10 +133,11 @@ class MotorcycleAddForm(GridLayout):
 class ClientAddForm(GridLayout):
     def __init__(self, root, *args, **kwargs):
         super(ClientAddForm, self).__init__(*args, **kwargs)
-        self.name = TextInput(hint_text='Имя')
-        self.add_widget(self.name)
+        # self.name = TextInput(hint_text='Имя')
+        # self.add_widget(self.name)
         # self.moto = TextInput.selection_text('f')
-        self.add_widget(DropDown())#text='CHOICE', on_press=root.choice_motocycle_model))
+        # self.add_widget(DropDown())#text='CHOICE', on_press=root.choice_motocycle_model))
+        self.add_widget(Button(text='Добавить', on_press=root.add_client))
         self.add_widget(Button(text='Добавить', on_press=root.add_client))
         # self.add_widget(
         #     Button(text='Удалить', on_press=root.cancel_motorcycle))

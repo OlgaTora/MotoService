@@ -31,11 +31,9 @@ def add_motorcycle(data):
 
 
 def add_client(data):
-    """
-        Add new client.
-    """
     client = Client()
     client.name = data['name']
+    client.motorcycle_id = data['motorcycle_id']
     # client.motorcycle = data['motorcycle']
     session.add(client)
     session.commit()

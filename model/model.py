@@ -34,8 +34,9 @@ class Motorcycle(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(80), nullable=False)
     document: Mapped[Optional[str]]
-    client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
-    client: Mapped['Client'] = relationship(back_populates='motorcycle')
+    client: Mapped[List['Client']] = relationship(
+        back_populates='motorcycle', cascade="all, delete-orphan"
+    )
 
 
 class Client(Base):
@@ -45,9 +46,9 @@ class Client(Base):
     surname: Mapped[Optional[str]]
     document: Mapped[Optional[str]]
     birthday: Mapped[Optional[str]]
-    motorcycle: Mapped[List['Motorcycle']] = relationship(
-        back_populates='client', cascade="all, delete-orphan"
-    )
+    motorcycle_id: Mapped[int] = mapped_column(ForeignKey('motorcycle.id'))
+    motorcycle: Mapped['Motorcycle'] = relationship(back_populates='client')
+
 
 #     id = Column(Integer, primary_key=True)
 #     name = Column(String(80), nullable=False)

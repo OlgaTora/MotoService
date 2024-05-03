@@ -20,6 +20,8 @@ from controller import controller
 class RootWidget(FloatLayout):
     client_form = ObjectProperty(None, allownone=True)
     clients = ObjectProperty(None, allownone=True)
+    motorcycle_form = ObjectProperty(None, allownone=True)
+    motorcycles = ObjectProperty(None, allownone=True)
 
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(**kwargs)
@@ -34,12 +36,15 @@ class RootWidget(FloatLayout):
         self.client_form = ClientAddForm(self)
         self.add_widget(self.client_form)
 
-    def open_motocycle_form(self, *args):
-        self.motocycle_form = MotocycleAddForm(self)
-        self.add_widget(self.motocycle_form)
+    def open_motorcycle_form(self, *args):
+        self.motorcycle_form = MotorcycleAddForm(self)
+        self.add_widget(self.motorcycle_form)
 
     def set_clients(self):
         self.clients = controller.get_clients()
+
+    def set_motorcycles(self):
+        self.motorcycles = controller.get_motorcycles()
 
     def add_client(*args):
         root = args[0]
@@ -48,14 +53,43 @@ class RootWidget(FloatLayout):
 
         controller.add_client({
             'name': root.client_form.name.text,
-            'motorcycle': root.client_form.motorcycle.text,
+            # 'motorcycle': root.client_form.motorcycle.text,
         })
 
         # root.clients.values = []
         root.set_clients()
         # root.cancel_motorcycle()
 
+    def add_moto(*args):
+        root = args[0]
+        if not root.motorcycle_form.name.text:
+            return
 
+        controller.add_motorcycle({
+            'name': root.motorcycle_form.name.text,
+            'document': root.motorcycle_form.document.text,
+        })
+
+        # root.clients.values = []
+        root.set_motorcycles()
+        # root.cancel_motorcycle()
+
+    def add_new(*args):
+        root = args[0]
+        if not root.motorcycle_form.name.text:
+            return
+        controller.add_client({
+            'name': root.motorcycle_form.client_name.text,
+            'motorcycle_id': root.motorcycle_form.name.text,
+        })
+        controller.add_motorcycle({
+            'name': root.motorcycle_form.name.text,
+            'document': root.motorcycle_form.document.text,
+        })
+
+        # root.clients.values = []
+        root.set_motorcycles()
+        # root.cancel_motorcycle()
 class MotoServiceApp(App):
 
     def build(self):
@@ -78,19 +112,15 @@ class MotoServiceApp(App):
 class ClientAddForm(GridLayout):
     def __init__(self, root, *args, **kwargs):
         super(ClientAddForm, self).__init__(*args, **kwargs)
-        self.name = TextInput(hint_text='Имя')
-        self.add_widget(self.name)
-        self.add_widget(Button(text='Add Moto',
+        # self.name = TextInput(hint_text='Имя')
+        # self.add_widget(self.name)
+        self.add_widget(Button(text='Add Moto if no in DB',
                                size_hint=(0.25, 0.15),
                                pos_hint={'center_x': .5, 'center_y': .5},
-                               on_press=root.open_motocycle_form))
-        motos = [str(moto) for moto in controller.get_base_motorcycles()]
-        self.motorcycle = Spinner(text="Moto", values=motos)
-        self.motorcycle.size_hint = (0.4, 0.7)
-        self.motorcycle.pos_hint = {'x': .1, 'y': .75}
-        self.add_widget(self.motorcycle)
+                               on_press=root.open_motorcycle_form))
+        self.add_widget(Button(text='Add Moto if in DB'))#, on_press=root.add_client))
         # spinnerObject.bind(text=self.on_spinner_select)
-        self.add_widget(Button(text='Добавить', on_press=root.add_client))
+        # self.add_widget(Button(text='Добавить', on_press=root.add_client))
         # self.add_widget(
         #     Button(text='Удалить', on_press=root.cancel_motorcycle))
         self.cols = 1
@@ -99,17 +129,24 @@ class ClientAddForm(GridLayout):
         self.pos_hint = {'x': .05, 'y': .5}
 
 
-class MotocycleAddForm(GridLayout):
+class MotorcycleAddForm(GridLayout):
     def __init__(self, root, *args, **kwargs):
-        super(MotocycleAddForm, self).__init__(*args, **kwargs)
-        self.name = TextInput(hint_text='Имя')
-        self.add_widget(self.name)
+        super(MotorcycleAddForm, self).__init__(*args, **kwargs)
+        self.client_name = TextInput(hint_text='Имя')
+        self.add_widget(self.client_name)
+        self.document = TextInput(hint_text='document')
+        self.add_widget(self.document)
         motos = [str(moto) for moto in controller.get_base_motorcycles()]
-        self.motorcycle = Spinner(text="Moto", values=motos)
-        self.motorcycle.size_hint = (0.4, 0.7)
-        self.motorcycle.pos_hint = {'x': .1, 'y': .75}
-        self.add_widget(self.motorcycle)
-
+        self.name = Spinner(text="Moto", values=motos)
+        self.add_widget(Button(text='Add client and new moto', on_press=root.add_new))
+        # self.add_widget(Button(text='Добавить', on_press=root.add_moto))
+        self.name.size_hint = (0.4, 0.7)
+        self.name.pos_hint = {'x': .1, 'y': .75}
+        self.add_widget(self.name)
+        self.cols = 1
+        self.spacing = 5
+        self.size_hint = (0.9, 0.3)
+        self.pos_hint = {'x': .05, 'y': .5}
 
 # class MotoyApp(App):
 #     def build(self):
