@@ -78,14 +78,16 @@ class RootWidget(FloatLayout):
         root = args[0]
         if not root.motorcycle_form.name.text:
             return
-        controller.add_client({
-            'name': root.motorcycle_form.client_name.text,
-            'motorcycle_id': root.motorcycle_form.name.text,
-        })
         controller.add_motorcycle({
             'name': root.motorcycle_form.name.text,
             'document': root.motorcycle_form.document.text,
         })
+
+        controller.add_client({
+            'name': root.motorcycle_form.client_name.text,
+            'motorcycle_id': controller.get_motorcycle(root.motorcycle_form.name.text),
+        })
+
 
         # root.clients.values = []
         root.set_motorcycles()

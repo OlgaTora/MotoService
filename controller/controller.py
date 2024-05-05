@@ -3,9 +3,8 @@
 """
 
 from model.model import Motorcycle, Base, Client, BaseMotorcycle
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
-
 
 engine = create_engine("sqlite:///model/ms.db", echo=True)
 # Session = sessionmaker(bind=engine)
@@ -38,6 +37,8 @@ def add_client(data):
     session.add(client)
     session.commit()
     session.close()
+
+
 #
 # """
 #     Get everything from tables Item and Category and create a list of ItemObj
@@ -59,6 +60,7 @@ def get_motorcycles():
     session.close()
     return motorcycles
 
+
 def get_base_motorcycles():
     motorcycles = session.query(BaseMotorcycle).all()
     if motorcycles is None:
@@ -66,8 +68,17 @@ def get_base_motorcycles():
     session.close()
     return motorcycles
 
+
 def get_clients():
     clients = session.query(Client).all()
     session.close()
     return clients
 
+
+def get_motorcycle(motorcycle_name):
+    stmt = (select(Motorcycle).where(Motorcycle.name == motorcycle_name))
+    motorcycle = session.scalars(stmt).one()
+    if motorcycle is None:
+        raise ValueError("Сокровище не найдено!")
+    session.close()
+    return motorcycle.id
