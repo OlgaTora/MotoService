@@ -75,8 +75,8 @@ def get_clients():
     return clients
 
 
-def get_motorcycle(motorcycle_name):
-    stmt = (select(Motorcycle).where(Motorcycle.name == motorcycle_name))
+def get_motorcycle(document):
+    stmt = (select(Motorcycle).where(Motorcycle.document == document))
     motorcycle = session.scalars(stmt).one()
     if motorcycle is None:
         raise ValueError("Сокровище не найдено!")

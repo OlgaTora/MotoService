@@ -30,7 +30,8 @@ class RootWidget(FloatLayout):
                                pos_hint={'center_x': .5, 'center_y': .5},
                                on_press=self.open_client_form))
         self.add_widget(Button(text="Bye", size_hint=(0.25, 0.15),
-                               pos_hint={'center_x': .5, 'center_y': .3}))
+                               pos_hint={'center_x': .5, 'center_y': .3},
+                               on_press=self.close())) #MotoServiceApp.stop()))
 
     def open_client_form(self, *args):
         self.client_form = ClientAddForm(self)
@@ -85,9 +86,9 @@ class RootWidget(FloatLayout):
 
         controller.add_client({
             'name': root.motorcycle_form.client_name.text,
-            'motorcycle_id': controller.get_motorcycle(root.motorcycle_form.name.text),
+            'motorcycle_id': controller.get_motorcycle(
+                root.motorcycle_form.document.text),
         })
-
 
         # root.clients.values = []
         root.set_motorcycles()
@@ -120,7 +121,10 @@ class ClientAddForm(GridLayout):
                                size_hint=(0.25, 0.15),
                                pos_hint={'center_x': .5, 'center_y': .5},
                                on_press=root.open_motorcycle_form))
-        self.add_widget(Button(text='Add Moto if in DB'))#, on_press=root.add_client))
+        self.add_widget(Button(text='Add Moto if in DB',
+                               size_hint=(0.25, 0.15),
+                               pos_hint={'center_x': .5, 'center_y': .5},
+                               ))#, on_press=root.add_client))
         # spinnerObject.bind(text=self.on_spinner_select)
         # self.add_widget(Button(text='Добавить', on_press=root.add_client))
         # self.add_widget(
@@ -136,15 +140,15 @@ class MotorcycleAddForm(GridLayout):
         super(MotorcycleAddForm, self).__init__(*args, **kwargs)
         self.client_name = TextInput(hint_text='Имя')
         self.add_widget(self.client_name)
-        self.document = TextInput(hint_text='document')
+        self.document = TextInput(hint_text='document for moto')
         self.add_widget(self.document)
         motos = [str(moto) for moto in controller.get_base_motorcycles()]
         self.name = Spinner(text="Moto", values=motos)
+        self.add_widget(self.name)
         self.add_widget(Button(text='Add client and new moto', on_press=root.add_new))
         # self.add_widget(Button(text='Добавить', on_press=root.add_moto))
         self.name.size_hint = (0.4, 0.7)
         self.name.pos_hint = {'x': .1, 'y': .75}
-        self.add_widget(self.name)
         self.cols = 1
         self.spacing = 5
         self.size_hint = (0.9, 0.3)
