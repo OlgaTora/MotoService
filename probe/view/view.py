@@ -4,18 +4,16 @@
 """
 
 from kivy.uix.button import Button
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.scrollview import ScrollView
+from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.textinput import TextInput
-from kivy.uix.dropdown import DropDown
 
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
 from kivy.core.window import Window
-from controller import controller
+from probe.controller import controller
 from kivy.config import Config
 from kivy.app import App
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty
 
 Window.size = (450, 750)
 Config.set('kivy', 'keyboard_mode', 'system')

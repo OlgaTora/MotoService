@@ -2,7 +2,7 @@ from databases import Database
 import sqlalchemy
 from sqlalchemy import create_engine, ForeignKey
 
-DATABASE_URL = 'sqlite:///clinica.db'
+DATABASE_URL = 'sqlite:///moto_service.db'
 database = Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
 
@@ -17,10 +17,10 @@ clients = sqlalchemy.Table(
     sqlalchemy.Column('birthday', sqlalchemy.Date, nullable=False),
 )
 
-pets = sqlalchemy.Table(
-    'pets',
+motorcycle = sqlalchemy.Table(
+    'motorcycle',
     metadata,
-    sqlalchemy.Column('pet_id', sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column('motorcycle_id', sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column('client_id', sqlalchemy.Integer, ForeignKey('clients.client_id'), nullable=False),
     sqlalchemy.Column('name', sqlalchemy.String(128)),
     sqlalchemy.Column('birthday', sqlalchemy.Date, nullable=False),
@@ -31,7 +31,7 @@ consultation = sqlalchemy.Table(
     metadata,
     sqlalchemy.Column('consultation_id', sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column('client_id', sqlalchemy.Integer, ForeignKey('clients.client_id'), nullable=False),
-    sqlalchemy.Column('pet_id', sqlalchemy.Integer, ForeignKey('pets.pet_id'), nullable=False),
+    sqlalchemy.Column('motorcycle_id', sqlalchemy.Integer, ForeignKey('motorcycle.motorcycle_id'), nullable=False),
     sqlalchemy.Column('consultation_date', sqlalchemy.Date),
     sqlalchemy.Column('description', sqlalchemy.String(128)),
 )

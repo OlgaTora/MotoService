@@ -2,10 +2,10 @@ from datetime import date
 from typing import Any
 from fastapi import HTTPException
 
-from Seminar_10.clinic.logger import logger
-from Seminar_10.clinic.repositories.irepository import IRepository
-from Seminar_10.clinic.schemas.consultation import Consultation, CreateConsultationRequest
-from Seminar_10.clinic.services.db import consultation, database
+from moto_service.logger import logger
+from moto_service.repositories.irepository import IRepository
+from moto_service.schemas.consultation import Consultation, CreateConsultationRequest
+from moto_service.services.db import consultation, database
 
 
 class ConsultRepository(IRepository):

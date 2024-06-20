@@ -1,25 +1,25 @@
 from typing import Any, Coroutine
-from Seminar_10.clinic.repositories.pets_repository import PetRepository
-from Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
+from moto_service.repositories.moto_repository import MotorcycleRepository
+from moto_service.schemas.motorcycle import Motorcycle, CreateMotorcycleRequest
 
 
-class PetService:
-    def __init__(self, repository: PetRepository) -> None:
+class MotorcycleService:
+    def __init__(self, repository: MotorcycleRepository) -> None:
         self.repository = repository
 
-    def get_all(self) -> Coroutine[Any, Any, list[Pet]]:
+    def get_all(self) -> Coroutine[Any, Any, list[Motorcycle]]:
         result = self.repository.get_all()
         return result
 
-    def create(self, pet: CreatePetRequest) -> Coroutine[Any, Any, dict[str, Any]]:
+    def create(self, pet: CreateMotorcycleRequest) -> Coroutine[Any, Any, dict[str, Any]]:
         result = self.repository.create(pet)
         return result
 
-    def get_by_id(self, pet_id: int) -> Coroutine[Any, Any, Pet]:
+    def get_by_id(self, pet_id: int) -> Coroutine[Any, Any, Motorcycle]:
         result = self.repository.get_by_id(pet_id)
         return result
 
-    def update(self, pet_id: int, item: Pet) -> Coroutine[Any, Any, int]:
+    def update(self, pet_id: int, item: Motorcycle) -> Coroutine[Any, Any, int]:
         result = self.repository.update(pet_id, item)
         return result
 

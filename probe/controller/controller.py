@@ -2,7 +2,7 @@
     The code in this file connects the model and the view.
 """
 
-from model.model import Motorcycle, Base, Client, BaseMotorcycle
+from probe.model.model import Motorcycle, Base, Client, BaseMotorcycle
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 

@@ -1,20 +1,17 @@
 # from kivy.lang import Builder
 # from kivymd.app import MDApp
 # import sqlite3
-from functools import partial
 
 from kivy.app import App
 from kivy.graphics import Rectangle, Color
-from kivy.properties import ObjectProperty, ListProperty
-from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 
-from controller import controller
+from probe.controller import controller
 
 
 class RootWidget(FloatLayout):

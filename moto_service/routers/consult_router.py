@@ -1,10 +1,10 @@
 from datetime import date
 from typing import List, Any
 from fastapi import APIRouter, Depends
-from Seminar_10.clinic.schemas.consultation import Consultation
-from Seminar_10.clinic.schemas.consultation import CreateConsultationRequest
-from Seminar_10.clinic.services.consults import ConsultationService
-from Seminar_10.clinic.services.depends import get_consult_service
+from moto_service.schemas.consultation import Consultation
+from moto_service.schemas.consultation import CreateConsultationRequest
+from moto_service.services.consults import ConsultationService
+from moto_service.services.depends import get_consult_service
 
 router = APIRouter()
 

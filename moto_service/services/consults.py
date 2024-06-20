@@ -1,6 +1,6 @@
 from typing import Any, Coroutine
-from Seminar_10.clinic.repositories.consult_repository import ConsultRepository
-from Seminar_10.clinic.schemas.consultation import Consultation, CreateConsultationRequest
+from moto_service.repositories.consult_repository import ConsultRepository
+from moto_service.schemas.consultation import Consultation, CreateConsultationRequest
 
 
 class ConsultationService:

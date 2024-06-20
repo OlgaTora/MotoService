@@ -1,15 +1,15 @@
 from typing import Any
 from fastapi import HTTPException
 
-from Seminar_10.clinic.logger import logger
-from Seminar_10.clinic.repositories.irepository import IRepository
-from Seminar_10.clinic.schemas.pet import Pet, CreatePetRequest
-from Seminar_10.clinic.services.db import pets, database
+from moto_service.logger import logger
+from moto_service.repositories.irepository import IRepository
+from moto_service.schemas.motorcycle import Motorcycle, CreateMotorcycleRequest
+from moto_service.services.db import motorcycle, database
 
 
-class PetRepository(IRepository):
-    async def get_all(self) -> list[Pet]:
-        query = pets.select()
+class MotorcycleRepository(IRepository):
+    async def get_all(self) -> list[Motorcycle]:
+        query = motorcycle.select()
         pets_list = await database.fetch_all(query)
         if not pets_list:
             msg = "Table 'consultations' is empty"
@@ -17,8 +17,8 @@ class PetRepository(IRepository):
             raise HTTPException(status_code=404, detail=msg)
         return pets_list
 
-    async def get_by_id(self, pet_id: int) -> Pet:
-        query = pets.select().where(pets.c.pet_id == pet_id)
+    async def get_by_id(self, motorcycle_id: int) -> Motorcycle:
+        query = motorcycle.select().where(motorcycle.c.motorcycle_id == motorcycle_id)
         pet = await database.fetch_one(query)
         if not pet:
             msg = "Pet didn't found"
@@ -27,8 +27,8 @@ class PetRepository(IRepository):
         return pet
 
     @staticmethod
-    async def get_by_client_id(client_id: int) -> list[Pet]:
-        query = pets.select().where(pets.c.client_id == client_id)
+    async def get_by_client_id(client_id: int) -> list[Motorcycle]:
+        query = motorcycle.select().where(motorcycle.c.client_id == client_id)
         pets_list = await database.fetch_all(query)
         if not pets_list:
             msg = "Pets didn't found"
@@ -36,28 +36,28 @@ class PetRepository(IRepository):
             raise HTTPException(status_code=404, detail=msg)
         return pets_list
 
-    async def create(self, pet: CreatePetRequest) -> dict[str, Any]:
-        query = pets.insert().values(
+    async def create(self, pet: CreateMotorcycleRequest) -> dict[str, Any]:
+        query = motorcycle.insert().values(
             client_id=pet.client_id,
             name=pet.name,
             birthday=pet.birthday)
         last_id = await database.execute(query)
         return {**pet.model_dump(), "pet_id": last_id}
 
-    async def update(self, pet_id: int, item: Pet):
-        query = pets.update().where(pets.c.pet_id == pet_id).values(**item.model_dump())
+    async def update(self, motorcycle_id: int, item: Motorcycle):
+        query = motorcycle.update().where(motorcycle.c.motorcycle_id == motorcycle_id).values(**item.model_dump())
         result = await database.execute(query)
         if not result:
             msg = "Pet didn't found"
             logger.info(msg)
             raise HTTPException(status_code=404, detail=msg)
-        return pet_id
+        return motorcycle_id
 
-    async def delete(self, pet_id: int):
-        query = pets.delete().where(pets.c.pet_id == pet_id)
+    async def delete(self, motorcycle_id: int):
+        query = motorcycle.delete().where(motorcycle.c.motorcycle_id == motorcycle_id)
         result = await database.execute(query)
         if not result:
             msg = "Pet didn't found"
             logger.info(msg)
             raise HTTPException(status_code=404, detail=msg)
-        return pet_id
+        return motorcycle_id

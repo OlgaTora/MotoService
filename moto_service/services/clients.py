@@ -1,6 +1,6 @@
 from typing import Any, Coroutine
-from Seminar_10.clinic.repositories.clients_repository import ClientRepository
-from Seminar_10.clinic.schemas.client import Client, CreateClientRequest
+from moto_service.repositories.clients_repository import ClientRepository
+from moto_service.schemas.client import Client, CreateClientRequest
 
 
 class ClientService:
